@@ -15,11 +15,12 @@ namespace AutoRest.CSharp
 {
     static class ExtensionsLoader
     {
-        public static IAnyPlugin GetPlugin(string generator, bool azure, bool fluent)
+        public static IAnyPlugin GetPlugin(string generator, bool azure, bool fluent, bool haipa)
         {
             if (generator == "jsonrpcclient") return new AutoRest.CSharp.Azure.JsonRpcClient.PluginCsa();
             if (fluent) return new AutoRest.CSharp.Azure.Fluent.PluginCsaf();
             if (azure) return new AutoRest.CSharp.Azure.PluginCsa();
+            if (haipa) return new AutoRest.CSharp.Haipa.PluginCsa();
             return new AutoRest.CSharp.PluginCs();
         }
     }
@@ -135,7 +136,8 @@ namespace AutoRest.CSharp
                 var plugin = ExtensionsLoader.GetPlugin(
                     this.Plugin,
                     await GetValue<bool?>("azure-arm") ?? false,
-                    await GetValue<bool?>("fluent") ?? false);
+                    await GetValue<bool?>("fluent") ?? false,
+                    await GetValue<bool?>("haipa") ?? false);
                 Settings.PopulateSettings(plugin.Settings, Settings.Instance.CustomSettings);
                 
                 using (plugin.Activate())
