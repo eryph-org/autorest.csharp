@@ -9,7 +9,8 @@ using System.Net;
 using AutoRest.Core.Model;
 using AutoRest.Core.Utilities;
 using AutoRest.CSharp.Model;
-using AutoRest.Extensions.Azure;
+using AutoRest.Extensions;
+using AutoRest.Extensions.Haipa;
 using Newtonsoft.Json;
 using IndentedStringBuilder = AutoRest.Core.Utilities.IndentedStringBuilder;
 
@@ -22,10 +23,10 @@ namespace AutoRest.CSharp.Haipa.Model
         }
         
         [JsonIgnore]
-        public string ClientRequestIdString => AzureExtensions.GetClientRequestIdString(this);
+        public string ClientRequestIdString => HaipaExtensions.GetClientRequestIdString(this);
 
         [JsonIgnore]
-        public string RequestIdString => AzureExtensions.GetRequestIdString(this);
+        public string RequestIdString => HaipaExtensions.GetRequestIdString(this);
 
         [JsonIgnore]
         public MethodCsa GetMethod
@@ -53,9 +54,9 @@ namespace AutoRest.CSharp.Haipa.Model
         {
             get
             {
-                if (DefaultResponse.Body != null && DefaultResponse.Body.Name == "CloudError")
+                if (DefaultResponse.Body != null && DefaultResponse.Body.Name == "ApiError")
                 {
-                    return "ex = new Haipa.ClientRuntime.CloudException(_errorBody.Message);";
+                    return "ex = new Haipa.ClientRuntime.ApiServiceException(_errorBody.Message);";
                 }
                 return base.InitializeExceptionWithMessage;
             }
@@ -68,7 +69,7 @@ namespace AutoRest.CSharp.Haipa.Model
         {
             get
             {
-                if (OperationExceptionTypeString == "Haipa.ClientRuntime.CloudException")
+                if (OperationExceptionTypeString == "Haipa.ClientRuntime.ApiServiceException")
                 {
                     IndentedStringBuilder sb = new IndentedStringBuilder();
                     sb.AppendLine(base.InitializeExceptionWithMessage)
@@ -85,7 +86,7 @@ namespace AutoRest.CSharp.Haipa.Model
         /// <summary>
         /// Returns true if method has x-ms-long-running-operation extension.
         /// </summary>
-        public bool IsLongRunningOperation => true == Extensions.Get<bool>(AzureExtensions.LongRunningExtension);
+        public bool IsLongRunningOperation => false;
 
         private string ReturnTypePageInterfaceName
         {
@@ -95,9 +96,9 @@ namespace AutoRest.CSharp.Haipa.Model
                 {
                     // Special handle Page class with IPage interface
                     CompositeType compositeType = ReturnType.Body as CompositeType;
-                    if (compositeType.Extensions.ContainsKey(AzureExtensions.PageableExtension))
+                    if (compositeType.Extensions.ContainsKey(HaipaExtensions.PageableExtension))
                     {
-                        return (string)compositeType.Extensions[AzureExtensions.PageableExtension];
+                        return (string)compositeType.Extensions[HaipaExtensions.PageableExtension];
                     }
                 }
                 return null;
@@ -164,9 +165,9 @@ namespace AutoRest.CSharp.Haipa.Model
         {
             get
             {
-                if (DefaultResponse.Body == null || DefaultResponse.Body.Name == "CloudError")
+                if (DefaultResponse.Body == null || DefaultResponse.Body.Name == "ApiError")
                 {
-                    return "Haipa.ClientRuntime.CloudException";
+                    return "Haipa.ClientRuntime.ApiServiceException";
                 }
                 return base.OperationExceptionTypeString;
             }
@@ -184,7 +185,7 @@ namespace AutoRest.CSharp.Haipa.Model
                 if (this.HttpMethod == HttpMethod.Head &&
                     this.ReturnType.Body != null)
                 {
-                    HttpStatusCode code = this.Responses.Keys.FirstOrDefault(AzureExtensions.HttpHeadStatusCodeSuccessFunc);
+                    HttpStatusCode code = this.Responses.Keys.FirstOrDefault(HaipaExtensions.HttpHeadStatusCodeSuccessFunc);
                     sb.AppendFormat("_result.Body = (_statusCode == System.Net.HttpStatusCode.{0});", code.ToString()).AppendLine();
                 }
                 sb.AppendLine("if (_httpResponse.Headers.Contains(\"{0}\"))", this.RequestIdString)
@@ -268,7 +269,7 @@ namespace AutoRest.CSharp.Haipa.Model
         _queryParameters.Add(_odataFilter);
     }}";
                     }
-                    else if (queryParameter.Extensions.ContainsKey(AzureExtensions.SkipUrlEncodingExtension))
+                    else if (queryParameter.Extensions.ContainsKey(HaipaExtensions.SkipUrlEncodingExtension))
                     {
                         queryParametersAddString = "_queryParameters.Add(string.Format(\"{0}={{0}}\", {1}));";
                     }
@@ -318,7 +319,7 @@ namespace AutoRest.CSharp.Haipa.Model
             foreach (var pathParameter in LogicalParameters.Where(p => p.Location == ParameterLocation.Path))
             {
                 string replaceString = "{0} = {0}.Replace(\"{{{1}}}\", System.Uri.EscapeDataString({2}));";
-                if (pathParameter.Extensions.ContainsKey(AzureExtensions.SkipUrlEncodingExtension))
+                if (pathParameter.Extensions.ContainsKey(SwaggerExtensions.SkipUrlEncodingExtension))
                 {
                     replaceString = "{0} = {0}.Replace(\"{{{1}}}\", {2});";
                 }

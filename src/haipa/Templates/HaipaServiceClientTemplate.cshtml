@@ -97,7 +97,7 @@ namespace @Settings.Namespace
             @:DeserializationSettings.Converters.Add(new Microsoft.Rest.Serialization.TransformationJsonConverter());
             }
 
-            DeserializationSettings.Converters.Add(new Haipa.ClientRuntime.CloudErrorJsonConverter()); 
+            DeserializationSettings.Converters.Add(new Haipa.ClientRuntime.ApiErrorJsonConverter()); 
         }    
     
         @foreach (MethodCsa method in Model.Methods.Where(each => each.Group.IsNullOrEmpty()))

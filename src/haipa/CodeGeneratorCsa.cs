@@ -62,7 +62,7 @@ namespace AutoRest.CSharp.Haipa
         {
             foreach (CompositeTypeCs exceptionType in errorTypes)
             {
-                if (exceptionType.Name == "CloudError")
+                if (exceptionType.Name == "ApiError")
                 {
                     continue;
                 }

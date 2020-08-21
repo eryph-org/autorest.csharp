@@ -13,6 +13,7 @@ using AutoRest.CSharp.Haipa.Model;
 using AutoRest.CSharp.Model;
 using AutoRest.Extensions;
 using AutoRest.Extensions.Azure;
+using AutoRest.Extensions.Haipa;
 using Newtonsoft.Json.Linq;
 using static AutoRest.Core.Utilities.DependencyInjection;
 
@@ -42,7 +43,7 @@ namespace AutoRest.CSharp.Haipa
             // PopulateAdditionalProperties(codeModel);
 
             // todo: these should be turned into individual transformers
-            AzureExtensions.NormalizeAzureClientModel(codeModel);
+            HaipaExtensions.NormalizeHaipaClientModel(codeModel);
 
             // Do parameter transformations
             TransformParameters(codeModel);

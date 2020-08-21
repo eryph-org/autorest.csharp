@@ -11,6 +11,7 @@
 {
 @:@(Include(new MethodTemplate(), (MethodCs)Model))
 }
+
 else if (Model.HttpMethod == HttpMethod.Post || Model.HttpMethod == HttpMethod.Delete)
 {
 if (!string.IsNullOrWhiteSpace(Model.Description) || !string.IsNullOrWhiteSpace(Model.Summary))
