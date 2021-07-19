@@ -2,12 +2,10 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 using System.Collections.Generic;
-using System.Linq;
 using AutoRest.Core.Utilities;
 using AutoRest.CSharp.Model;
-using AutoRest.Extensions.Azure;
 
-namespace AutoRest.CSharp.Haipa.Model
+namespace AutoRest.CSharp.eryph.Model
 {
     public class MethodGroupCsa : MethodGroupCs
     {
@@ -36,7 +34,7 @@ namespace AutoRest.CSharp.Haipa.Model
         {
             get
             {
-                yield return "Haipa.ClientRuntime";
+                yield return "Eryph.ClientRuntime";
 
                 if ((CodeModel as CodeModelCsa).HaveModelNamespace)
                 {

@@ -4,14 +4,13 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using AutoRest.CSharp.Model;
-using AutoRest.Extensions.Azure;
-using Newtonsoft.Json;
 using System.Text.RegularExpressions;
-using AutoRest.Core.Utilities;
 using AutoRest.Core;
+using AutoRest.Core.Utilities;
+using AutoRest.CSharp.Model;
+using Newtonsoft.Json;
 
-namespace AutoRest.CSharp.Haipa.Model
+namespace AutoRest.CSharp.eryph.Model
 {
     public class CodeModelCsa : CodeModelCs
     {
@@ -28,7 +27,7 @@ namespace AutoRest.CSharp.Haipa.Model
             get
             {
                 yield return "Microsoft.Rest";
-                yield return "Haipa.ClientRuntime";
+                yield return "Eryph.ClientRuntime";
 
                 if (HaveModelNamespace)
                 {

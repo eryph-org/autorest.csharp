@@ -7,6 +7,7 @@ using AutoRest.Core.Extensibility;
 using AutoRest.Core.Model;
 using AutoRest.Core.Parsing;
 using AutoRest.Core.Utilities;
+using AutoRest.CSharp.eryph;
 using Microsoft.Perks.JsonRPC;
 
 using IAnyPlugin = AutoRest.Core.Extensibility.IPlugin<AutoRest.Core.Extensibility.IGeneratorSettings, AutoRest.Core.IModelSerializer<AutoRest.Core.Model.CodeModel>, AutoRest.Core.ITransformer<AutoRest.Core.Model.CodeModel>, AutoRest.Core.CodeGenerator, AutoRest.Core.CodeNamer, AutoRest.Core.Model.CodeModel>;
@@ -15,12 +16,12 @@ namespace AutoRest.CSharp
 {
     static class ExtensionsLoader
     {
-        public static IAnyPlugin GetPlugin(string generator, bool azure, bool fluent, bool haipa)
+        public static IAnyPlugin GetPlugin(string generator, bool azure, bool fluent, bool eryph)
         {
             if (generator == "jsonrpcclient") return new AutoRest.CSharp.Azure.JsonRpcClient.PluginCsa();
             if (fluent) return new AutoRest.CSharp.Azure.Fluent.PluginCsaf();
             if (azure) return new AutoRest.CSharp.Azure.PluginCsa();
-            if (haipa) return new AutoRest.CSharp.Haipa.PluginCsa();
+            if (eryph) return new PluginCsa();
             return new AutoRest.CSharp.PluginCs();
         }
     }
@@ -137,7 +138,7 @@ namespace AutoRest.CSharp
                     this.Plugin,
                     await GetValue<bool?>("azure-arm") ?? false,
                     await GetValue<bool?>("fluent") ?? false,
-                    await GetValue<bool?>("haipa") ?? false);
+                    await GetValue<bool?>("eryph") ?? false);
                 Settings.PopulateSettings(plugin.Settings, Settings.Instance.CustomSettings);
                 
                 using (plugin.Activate())

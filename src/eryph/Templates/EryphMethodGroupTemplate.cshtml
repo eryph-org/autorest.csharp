@@ -1,6 +1,6 @@
-﻿@using AutoRest.CSharp.Haipa.Model
-@using AutoRest.Core.Utilities
-@using AutoRest.CSharp.haipa.Templates
+﻿@using AutoRest.Core.Utilities
+@using AutoRest.CSharp.eryph.Model
+@using AutoRest.CSharp.eryph.Templates
 
 @inherits AutoRest.Core.Template<AutoRest.CSharp.Model.MethodGroupCs>
 @Header("// ")
@@ -43,7 +43,7 @@ namespace @Settings.Namespace
         @EmptyLine
         @foreach (var method in Model.Methods)
         {
-        @:@(Include(DependencyInjection.New<HaipaMethodTemplate>(), (MethodCsa)method))
+        @:@(Include(DependencyInjection.New<EryphMethodTemplate>(), (MethodCsa)method))
         @EmptyLine
         }
     }

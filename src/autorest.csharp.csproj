@@ -80,16 +80,16 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <DotnetRazor Remove="haipa\Templates\HaipaAssemblyInfoTemplate.cshtml" />
+    <DotnetRazor Remove="eryph\Templates\EryphAssemblyInfoTemplate.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <DotnetRazor Remove="haipa\Templates\HaipaMethodGroupTemplate.cshtml" />
+    <DotnetRazor Remove="eryph\Templates\EryphMethodGroupTemplate.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <DotnetRazor Remove="haipa\Templates\HaipaMethodTemplate.cshtml" />
+    <DotnetRazor Remove="eryph\Templates\EryphMethodTemplate.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <DotnetRazor Remove="haipa\Templates\HaipaServiceClientTemplate.cshtml" />
+    <DotnetRazor Remove="eryph\Templates\EryphServiceClientTemplate.cshtml" />
   </ItemGroup>
 
 </Project>

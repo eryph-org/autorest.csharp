@@ -7,22 +7,23 @@ using System.Globalization;
 using System.Linq;
 using System.Net;
 using AutoRest.Core;
-using AutoRest.Core.Model;
 using AutoRest.Core.Logging;
+using AutoRest.Core.Model;
 using AutoRest.Core.Utilities;
 using AutoRest.Core.Utilities.Collections;
+using AutoRest.Extensions;
 using AutoRest.Extensions.Azure.Model;
 using Newtonsoft.Json;
 using ParameterLocation = AutoRest.Core.Model.ParameterLocation;
 using static AutoRest.Core.Utilities.DependencyInjection;
 
-namespace AutoRest.Extensions.Haipa
+namespace AutoRest.CSharp.eryph
 {
     /// <summary>
-    /// Base code generator for Azure.
+    /// Base code generator for eryph.
     /// Normalizes the ServiceClient according to Azure conventions and Swagger extensions.
     /// </summary>
-    public abstract class HaipaExtensions : SwaggerExtensions
+    public abstract class EryphExtensions : SwaggerExtensions
     {
         public const string PageableExtension = "x-ms-pageable";
         public const string ODataExtension = "x-ms-odata";
@@ -47,7 +48,7 @@ namespace AutoRest.Extensions.Haipa
         /// <param name="settings">AutoRest settings</param>
         /// <param name="codeNamer">AutoRest settings</param>
         /// <returns></returns>
-        public static void NormalizeHaipaClientModel(CodeModel codeModel)
+        public static void NormalizeEryphClientModel(CodeModel codeModel)
         {
             var settings = Settings.Instance;
             using (NewContext)
@@ -60,7 +61,7 @@ namespace AutoRest.Extensions.Haipa
                     throw new ArgumentNullException("codeModel");
                 }
 
-                // This extension from general extensions must be run prior to Haipa specific extensions.
+                // This extension from general extensions must be run prior to eryph specific extensions.
                 ProcessParameterizedHost(codeModel);
 
                 ProcessClientRequestIdExtension(codeModel);
@@ -70,7 +71,7 @@ namespace AutoRest.Extensions.Haipa
                 FlattenModels(codeModel);
                 FlattenMethodParameters(codeModel);
                 ParameterGroupExtensionHelper.AddParameterGroups(codeModel);
-                AddHaipaProperties(codeModel);
+                AddEryphProperties(codeModel);
                 SetDefaultResponses(codeModel);
                 AddPageableMethod(codeModel);
             }
@@ -179,10 +180,10 @@ namespace AutoRest.Extensions.Haipa
         }
 
         /// <summary>
-        /// Creates azure specific properties.
+        /// Creates eryph specific properties.
         /// </summary>
         /// <param name="codeModelient"></param>
-        public static void AddHaipaProperties(CodeModel codeModel)
+        public static void AddEryphProperties(CodeModel codeModel)
         {
             if (codeModel == null)
             {
@@ -229,7 +230,7 @@ namespace AutoRest.Extensions.Haipa
                 ModelType = New<PrimaryType>(KnownPrimaryType.Credentials),
                 IsRequired = true,
                 IsReadOnly = true,
-                Documentation = "Credentials needed for the client to connect to Haipa."
+                Documentation = "Credentials needed for the client to connect to eryph."
             }));
 
             codeModel.Add( New<Property>(new 

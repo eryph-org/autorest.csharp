@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoRest.Core;
-using AutoRest.Core.Extensibility;
+﻿using AutoRest.Core.Extensibility;
 using AutoRest.Core.Model;
 using AutoRest.Core.Utilities;
-using AutoRest.CSharp.Haipa.Model;
+using AutoRest.CSharp.eryph.Model;
 using AutoRest.CSharp.Model;
 
-namespace AutoRest.CSharp.Haipa
+namespace AutoRest.CSharp.eryph
 {
     public class PluginCsa : Plugin<GeneratorSettingsCs, TransformerCsa, CodeGeneratorCsa, CodeNamerCsa, CodeModelCsa>
     {

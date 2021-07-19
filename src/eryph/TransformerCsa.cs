@@ -9,15 +9,14 @@ using System.Linq;
 using AutoRest.Core;
 using AutoRest.Core.Model;
 using AutoRest.Core.Utilities;
-using AutoRest.CSharp.Haipa.Model;
+using AutoRest.CSharp.eryph.Model;
 using AutoRest.CSharp.Model;
 using AutoRest.Extensions;
 using AutoRest.Extensions.Azure;
-using AutoRest.Extensions.Haipa;
 using Newtonsoft.Json.Linq;
 using static AutoRest.Core.Utilities.DependencyInjection;
 
-namespace AutoRest.CSharp.Haipa
+namespace AutoRest.CSharp.eryph
 {
     public class TransformerCsa : TransformerCs, ITransformer<CodeModelCsa>
     {
@@ -43,7 +42,7 @@ namespace AutoRest.CSharp.Haipa
             // PopulateAdditionalProperties(codeModel);
 
             // todo: these should be turned into individual transformers
-            HaipaExtensions.NormalizeHaipaClientModel(codeModel);
+            EryphExtensions.NormalizeEryphClientModel(codeModel);
 
             // Do parameter transformations
             TransformParameters(codeModel);
@@ -56,8 +55,8 @@ namespace AutoRest.CSharp.Haipa
                 if (model.Extensions.ContainsKey(AzureExtensions.AzureResourceExtension) &&
                     (bool)model.Extensions[AzureExtensions.AzureResourceExtension])
                 {
-                    model.BaseModelType = New<ILiteralType>("Haipa.ClientRuntime.IResource",
-                        new { SerializedName = "Haipa.ClientRuntime.IResource" }) as CompositeType;
+                    model.BaseModelType = New<ILiteralType>("Eryph.ClientRuntime.IResource",
+                        new { SerializedName = "Eryph.ClientRuntime.IResource" }) as CompositeType;
                 }
             }
 
@@ -98,7 +97,7 @@ namespace AutoRest.CSharp.Haipa
                     {
                         SerializedName = "$filter",
                         Name = "odataQuery",
-                        ModelType = New<ILiteralType>($"Haipa.ClientRuntime.OData.ODataQuery<{odataFilter.ModelType.Name}>"),
+                        ModelType = New<ILiteralType>($"Eryph.ClientRuntime.OData.ODataQuery<{odataFilter.ModelType.Name}>"),
                         Documentation = "OData parameters to apply to the operation.",
                         Location = ParameterLocation.Query,
                         odataFilter.IsRequired
@@ -135,7 +134,7 @@ namespace AutoRest.CSharp.Haipa
                     continue;
                 }
                 var pageTypeFormat = "{0}<{1}>";
-                var ipageTypeFormat = "Haipa.ClientRuntime.IPage<{0}>";
+                var ipageTypeFormat = "Eryph.ClientRuntime.IPage<{0}>";
                 if (string.IsNullOrWhiteSpace(nextLinkString))
                 {
                     ipageTypeFormat = "System.Collections.Generic.IEnumerable<{0}>";

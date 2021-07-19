@@ -4,7 +4,7 @@
 
 using AutoRest.Core.Utilities;
 
-namespace AutoRest.CSharp.Haipa
+namespace AutoRest.CSharp.eryph
 {
     public class CodeNamerCsa : CodeNamerCs
     {

@@ -1,29 +1,26 @@
 ﻿@using System
 @using System.Linq
 @using AutoRest.Core.Utilities
-@using AutoRest.CSharp.Haipa.Model
 @using AutoRest.CSharp.Model
-@inherits AutoRest.Core.Template<AutoRest.CSharp.Haipa.Model.CodeModelCsa>
+@inherits AutoRest.Core.Template<AutoRest.CSharp.eryph.Model.CodeModelCsa>
 
-@{
-    var serviceName = Model.ServiceName;
-}
+@{ var serviceName = Model.ServiceName; }
 
 @Header("// ")
 @EmptyLine
 using System.Reflection;
 using System.Resources;
 @EmptyLine
-[assembly: AssemblyTitle("Haipa @serviceName API Library")]
-[assembly: AssemblyDescription("Provides Haipa @serviceName management APIs.")]
+[assembly: AssemblyTitle("eryph @serviceName API Library")]
+[assembly: AssemblyDescription("Provides eryph @serviceName management APIs.")]
 @EmptyLine
 [assembly: AssemblyVersion("1.0.0.60")]
 [assembly: AssemblyFileVersion("@Model.ClientPackageVersion.0")]
 @EmptyLine
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("dbosoft")]
-[assembly: AssemblyProduct("Haipa")]
-[assembly: AssemblyCopyright("Copyright (c) dbosoft GmbH and Haipa contributors")]
+[assembly: AssemblyProduct("eryph")]
+[assembly: AssemblyCopyright("Copyright (c) dbosoft GmbH and eryph contributors")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: NeutralResourcesLanguage("en")]

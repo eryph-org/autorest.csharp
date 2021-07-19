@@ -4,7 +4,7 @@
 using System.Collections.Generic;
 using AutoRest.CSharp.Model;
 
-namespace AutoRest.CSharp.Haipa.Model
+namespace AutoRest.CSharp.eryph.Model
 {
     public class CompositeTypeCsa : CompositeTypeCs
     {
@@ -23,7 +23,7 @@ namespace AutoRest.CSharp.Haipa.Model
         {
             get
             {
-                yield return "Haipa.ClientRuntime";
+                yield return "Eryph.ClientRuntime";
                 foreach (string usingString in base.Usings)
                 {
                     yield return usingString;

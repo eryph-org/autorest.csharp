@@ -10,11 +10,10 @@ using AutoRest.Core.Model;
 using AutoRest.Core.Utilities;
 using AutoRest.CSharp.Model;
 using AutoRest.Extensions;
-using AutoRest.Extensions.Haipa;
 using Newtonsoft.Json;
 using IndentedStringBuilder = AutoRest.Core.Utilities.IndentedStringBuilder;
 
-namespace AutoRest.CSharp.Haipa.Model
+namespace AutoRest.CSharp.eryph.Model
 {
     public class MethodCsa : MethodCs
     {
@@ -23,10 +22,10 @@ namespace AutoRest.CSharp.Haipa.Model
         }
         
         [JsonIgnore]
-        public string ClientRequestIdString => HaipaExtensions.GetClientRequestIdString(this);
+        public string ClientRequestIdString => EryphExtensions.GetClientRequestIdString(this);
 
         [JsonIgnore]
-        public string RequestIdString => HaipaExtensions.GetRequestIdString(this);
+        public string RequestIdString => EryphExtensions.GetRequestIdString(this);
 
         [JsonIgnore]
         public MethodCsa GetMethod
@@ -56,7 +55,7 @@ namespace AutoRest.CSharp.Haipa.Model
             {
                 if (DefaultResponse.Body != null && DefaultResponse.Body.Name == "ApiError")
                 {
-                    return "ex = new Haipa.ClientRuntime.ApiServiceException(_errorBody.Message);";
+                    return "ex = new Eryph.ClientRuntime.ApiServiceException(_errorBody.Message);";
                 }
                 return base.InitializeExceptionWithMessage;
             }
@@ -69,7 +68,7 @@ namespace AutoRest.CSharp.Haipa.Model
         {
             get
             {
-                if (OperationExceptionTypeString == "Haipa.ClientRuntime.ApiServiceException")
+                if (OperationExceptionTypeString == "Eryph.ClientRuntime.ApiServiceException")
                 {
                     IndentedStringBuilder sb = new IndentedStringBuilder();
                     sb.AppendLine(base.InitializeExceptionWithMessage)
@@ -96,9 +95,9 @@ namespace AutoRest.CSharp.Haipa.Model
                 {
                     // Special handle Page class with IPage interface
                     CompositeType compositeType = ReturnType.Body as CompositeType;
-                    if (compositeType.Extensions.ContainsKey(HaipaExtensions.PageableExtension))
+                    if (compositeType.Extensions.ContainsKey(EryphExtensions.PageableExtension))
                     {
-                        return (string)compositeType.Extensions[HaipaExtensions.PageableExtension];
+                        return (string)compositeType.Extensions[EryphExtensions.PageableExtension];
                     }
                 }
                 return null;
@@ -118,22 +117,22 @@ namespace AutoRest.CSharp.Haipa.Model
                     if (ReturnType.Headers != null)
                     {
                         return string.Format(CultureInfo.InvariantCulture,
-                                    "Haipa.ClientRuntime.HaipaOperationResponse<{0},{1}>", ReturnTypeString, ReturnType.Headers.AsNullableType(HttpMethod != HttpMethod.Head));
+                                    "Eryph.ClientRuntime.EryphOperationResponse<{0},{1}>", ReturnTypeString, ReturnType.Headers.AsNullableType(HttpMethod != HttpMethod.Head));
                     }
                     else
                     {
                         return string.Format(CultureInfo.InvariantCulture,
-                                    "Haipa.ClientRuntime.HaipaOperationResponse<{0}>", ReturnTypeString);
+                                    "Eryph.ClientRuntime.EryphOperationResponse<{0}>", ReturnTypeString);
                     }
                 }
                 else if (ReturnType.Headers != null)
                 {
                     return string.Format(CultureInfo.InvariantCulture,
-                                    "Haipa.ClientRuntime.HaipaOperationHeaderResponse<{0}>", ReturnType.Headers.AsNullableType(HttpMethod != HttpMethod.Head));
+                                    "Eryph.ClientRuntime.EryphOperationHeaderResponse<{0}>", ReturnType.Headers.AsNullableType(HttpMethod != HttpMethod.Head));
                 }
                 else
                 {
-                    return "Haipa.ClientRuntime.HaipaOperationResponse";
+                    return "Eryph.ClientRuntime.EryphOperationResponse";
                 }
             }
         }
@@ -167,7 +166,7 @@ namespace AutoRest.CSharp.Haipa.Model
             {
                 if (DefaultResponse.Body == null || DefaultResponse.Body.Name == "ApiError")
                 {
-                    return "Haipa.ClientRuntime.ApiServiceException";
+                    return "Eryph.ClientRuntime.ApiServiceException";
                 }
                 return base.OperationExceptionTypeString;
             }
@@ -185,7 +184,7 @@ namespace AutoRest.CSharp.Haipa.Model
                 if (this.HttpMethod == HttpMethod.Head &&
                     this.ReturnType.Body != null)
                 {
-                    HttpStatusCode code = this.Responses.Keys.FirstOrDefault(HaipaExtensions.HttpHeadStatusCodeSuccessFunc);
+                    HttpStatusCode code = this.Responses.Keys.FirstOrDefault(EryphExtensions.HttpHeadStatusCodeSuccessFunc);
                     sb.AppendFormat("_result.Body = (_statusCode == System.Net.HttpStatusCode.{0});", code.ToString()).AppendLine();
                 }
                 sb.AppendLine("if (_httpResponse.Headers.Contains(\"{0}\"))", this.RequestIdString)
@@ -269,7 +268,7 @@ namespace AutoRest.CSharp.Haipa.Model
         _queryParameters.Add(_odataFilter);
     }}";
                     }
-                    else if (queryParameter.Extensions.ContainsKey(HaipaExtensions.SkipUrlEncodingExtension))
+                    else if (queryParameter.Extensions.ContainsKey(EryphExtensions.SkipUrlEncodingExtension))
                     {
                         queryParametersAddString = "_queryParameters.Add(string.Format(\"{0}={{0}}\", {1}));";
                     }

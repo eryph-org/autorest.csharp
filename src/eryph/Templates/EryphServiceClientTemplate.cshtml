@@ -1,8 +1,8 @@
 ﻿@using System
 @using System.Linq
 @using AutoRest.Core.Utilities
-@using AutoRest.CSharp.Haipa.Model
-@using AutoRest.CSharp.haipa.Templates
+@using AutoRest.CSharp.eryph.Model
+@using AutoRest.CSharp.eryph.Templates
 @using AutoRest.CSharp.Model
 @using AutoRest.CSharp.vanilla.Templates.Rest.Client
 
@@ -22,7 +22,7 @@ namespace @Settings.Namespace
     @:@WrapComment("/// ", Model.Documentation.EscapeXmlComment())
     @:/// </summary>
     }
-    public partial class @Model.Name : Microsoft.Rest.ServiceClient<@Model.Name>, I@(Model.Name), IHaipaClient
+    public partial class @Model.Name : Microsoft.Rest.ServiceClient<@Model.Name>, I@(Model.Name), IEryphClient
     {
         @(Include(new ServiceClientBodyTemplate(), (CodeModelCs)Model))
     
@@ -97,7 +97,7 @@ namespace @Settings.Namespace
             @:DeserializationSettings.Converters.Add(new Microsoft.Rest.Serialization.TransformationJsonConverter());
             }
 
-            DeserializationSettings.Converters.Add(new Haipa.ClientRuntime.ApiErrorJsonConverter()); 
+            DeserializationSettings.Converters.Add(new Eryph.ClientRuntime.ApiErrorJsonConverter()); 
         }    
     
         @foreach (MethodCsa method in Model.Methods.Where(each => each.Group.IsNullOrEmpty()))
@@ -107,7 +107,7 @@ namespace @Settings.Namespace
             continue;
         }
 
-        @:@(Include(DependencyInjection.New<HaipaMethodTemplate>(), (MethodCsa)method))
+        @:@(Include(DependencyInjection.New<EryphMethodTemplate>(), (MethodCsa)method))
         @EmptyLine
         @:
         }
